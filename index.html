@@ -765,12 +765,15 @@
     </div>
 </div>
 
-                <div class="video-frame">
-                    <video id="mainVideo" controls controlsList="nodownload" oncontextmenu="return false;">
-                        <source id="videoSource" src="" type="video/mp4">
-                    </video>
-                    <div class="video-overlay-text">Basher AI | @BQG19</div>
-                </div>
+<div class="video-frame" style="display: flex; justify-content: center; align-items: center; min-height: 300px; flex-direction: column; background: #000;">
+    <h3 id="youtube-title" style="color: var(--accent-color); margin-bottom: 20px;">يرجى اختيار محاضرة من القائمة الجانبية</h3>
+    
+    <a id="youtube-link" href="#" target="_blank" class="nav-btn active-btn" style="text-decoration: none; padding: 15px 30px; font-size: 1.2rem; display: none; background: #FF0000; color: white; border:none; box-shadow: 0 0 15px rgba(255,0,0,0.5);">
+        ▶️ مشاهدة المحاضرة على يوتيوب
+    </a>
+    <div class="video-overlay-text">Basher AI | @BQG19</div>
+</div>
+
                 <h3 id="currentLessonTitle">اختر محاضرة</h3>
             </div>
             <div class="lessons-sidebar" id="lessonsList"></div>
@@ -2071,28 +2074,6 @@ window.onclick = function(event) {
     }
 }
 
-function changeVideo(fileName, title, element) {
-    const video = document.getElementById('mainVideo');
-    const source = document.getElementById('videoSource');
-    const titleDisplay = document.getElementById('currentLessonTitle');
-
-    // تحديث المسار (تأكد أن الفيديوهات داخل مجلد اسمه lectures)
-    source.src = `lectures/${fileName}`;
-    
-    // ضروري جداً عمل load لكي يدرك المتصفح أن المصدر تغير
-    video.load(); 
-    video.play();
-
-    titleDisplay.innerText = title;
-
-    // تحديث شكل القائمة: إزالة اللون الأزرق من الجميع ووضعه على المختار فقط
-    document.querySelectorAll('.lesson-card').forEach(card => {
-        card.classList.remove('active-lesson');
-    });
-    element.classList.add('active-lesson');
-}
-
-
 function verifyLectureAccess() {
     const codeInput = document.getElementById('studentCode').value.trim().toUpperCase();
     const authZone = document.getElementById('lecture-auth-zone');
@@ -2137,9 +2118,9 @@ const coursesData = {
         secretCode: "PY-2026", // الكود الخاص بهذا الكورس
         allowedEmails: ["ali@gmail.com"],
         lessons: [ 
-        { id: "p1.mp4", name: " المحاضرة الاولى" } ,
-        { id: "p2.mp4", name: "المحاضرة الثانية الجزء الاول" },
-        { id: "p3.mp4", name: "المحاضرة الثانية الجزء الثاني" },
+        { id: "https://youtu.be/a7GM9_xEIP4", name: " المحاضرة الاولى" } ,
+        { id: "https://youtu.be/8jctiQIgduU", name: "المحاضرة الثانية الجزء الاول" },
+        { id: "https://youtu.be/eLjdTg1QXU8", name: "المحاضرة الثانية الجزء الثاني" },
         { id: "p4.mp4", name: "المحاضرة الثالثة" },
         { id: "p5.mp4", name: "المحاضرة الرابعة" },
         { id: "p6.mp4", name: "المحاضرة الخامسة" },
@@ -2157,13 +2138,13 @@ const coursesData = {
         allowedEmails: ["ali@gmail.com", "basher@gmail.com"],
 
         lessons: [
-        { id: "c1.mp4", name: " المحاضرة الاولى" } ,
-        { id: "c2.mp4", name: "المحاضرة الثانية الجزء الاول" },
-        { id: "c3.mp4", name: "المحاضرة الثانية الجزء الثاني" },
-        { id: "c4.mp4", name: "المحاضرة الثالثة الجزء الاول" },
-        { id: "c5.mp4", name: "المحاضرة الثالثة الجزء الثاني" },
-        { id: "c6.mp4", name: "المحاضرة الرابعة" },
-        { id: "c7.mp4", name: "المحاضرة الخامسة" }
+        { id: "https://youtu.be/DB9TyzUrj1Q", name: " المحاضرة الاولى" } ,
+        { id: "https://youtu.be/vaIEkI48wys", name: "المحاضرة الثانية الجزء الاول" },
+        { id: "https://youtu.be/hKzytRKTLmA", name: "المحاضرة الثانية الجزء الثاني" },
+        { id: "https://youtu.be/y2DZmD0F4oU", name: "المحاضرة الثالثة الجزء الاول" },
+        { id: "https://youtu.be/hGsSehDnTiY", name: "المحاضرة الثالثة الجزء الثاني" },
+        { id: "https://youtu.be/oCXGCN1wLzs", name: "المحاضرة الرابعة" },
+        { id: "https://youtu.be/T66yZD0hYM4", name: "المحاضرة الخامسة" }
 
         ]
     },
@@ -2269,12 +2250,12 @@ function backToSelection() {
     document.getElementById('course-selection').style.display = 'block';
 }
 
-// 4. العودة من المحاضرات للشبكة
 function backToCourses() {
     document.getElementById('lecture-content').style.display = 'none';
     document.getElementById('course-selection').style.display = 'block';
-    const video = document.getElementById('mainVideo');
-    video.pause();
+    
+    // مسح المصدر لإيقاف الفيديو فوراً
+    document.getElementById('mainVideo').src = "";
 }
 
 // هذه الدالة المسؤولة عن بناء القائمة عند اختيار كورس
@@ -2314,40 +2295,35 @@ function buildLessonsList(course) {
 
 let currentVideoKey = ""; // لحفظ معرف الفيديو الحالي
 
-// 1. تحديث دالة تغيير الفيديو
-function changeVideo(fileName, title, element) {
-    const video = document.getElementById('mainVideo');
-    const source = document.getElementById('videoSource');
-    const titleDisplay = document.getElementById('currentLessonTitle');
+function changeVideo(url, title, element) {
+    currentVideoKey = url; // نستخدم الرابط كمعرف لحفظ الملاحظات
     
-    currentVideoKey = fileName; // حفظ اسم الملف كـ Key للملاحظات
+    const titleDisplay = document.getElementById('currentLessonTitle');
+    const ytTitle = document.getElementById('youtube-title');
+    const ytLinkBtn = document.getElementById('youtube-link');
 
-    source.src = `lectures/${fileName}`;
-    video.load();
-    video.play();
+    // تحديث العناوين
     titleDisplay.innerText = title;
+    ytTitle.innerText = title;
+    
+    // تحديث رابط اليوتيوب وإظهار الزر
+    ytLinkBtn.href = url;
+    ytLinkBtn.style.display = 'inline-block';
 
-    // تحميل الملاحظات المحفوظة لهذا الفيديو
+    // تحميل الملاحظات المحفوظة لهذا الدرس
     const savedNote = localStorage.getItem('note_' + currentVideoKey);
     document.getElementById('lectureNotes').value = savedNote || "";
 
-    // تحديث الشكل النشط
+    // تحديث الشكل النشط في القائمة الجانبية (اللون الأزرق)
     document.querySelectorAll('.lesson-card').forEach(card => card.classList.remove('active-lesson'));
     element.classList.add('active-lesson');
-}
 
-// 2. كود علامة الصح (عند انتهاء الفيديو)
-document.getElementById('mainVideo').onended = function() {
-    // حفظ حالة المشاهدة في المتصفح
+    // تسجيل أن الطالب فتح المحاضرة (لتظهر علامة الصح ✔️)
     localStorage.setItem('watched_' + currentVideoKey, 'true');
-    
-    // تحديث القائمة فوراً لإظهار علامة الصح
-    const activeCard = document.querySelector('.active-lesson');
-    if (activeCard && !activeCard.querySelector('.watched-icon')) {
-        activeCard.innerHTML += ' <span class="watched-icon">✓</span>';
+    if (!element.querySelector('.watched-icon')) {
+        element.innerHTML += ' <span class="watched-icon">✓</span>';
     }
-    speak("أحسنت! أكملت هذه المحاضرة بنجاح");
-};
+}
 
 // 3. كود حفظ الملاحظات تلقائياً أثناء الكتابة
 document.getElementById('lectureNotes').oninput = function() {
@@ -2356,6 +2332,8 @@ document.getElementById('lectureNotes').oninput = function() {
     document.getElementById('saveStatus').innerText = "جاري الحفظ تلقائياً...";
     setTimeout(() => { document.getElementById('saveStatus').innerText = "تم حفظ الملاحظات ✅"; }, 1000);
 };
+
+
 
 // 4. دالة التكبير (Zoom)
 function toggleZoom() {
