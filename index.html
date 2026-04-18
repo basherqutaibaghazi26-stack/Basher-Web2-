@@ -2707,6 +2707,67 @@ sensitiveSections.forEach(section => {
     }
 });
 
+// ==========================================
+// نظام منع النسخ واللصق في الحقول والأقسام الحساسة
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. تحديد الحقول التي يمنع فيها اللصق والنسخ (الإيميل، الكود السري، وكود الشهادة)
+    const protectedInputs = [
+        document.getElementById('studentEmailInput'),
+        document.getElementById('courseSecretInput'),
+        document.getElementById('certInput')
+    ];
+
+    protectedInputs.forEach(input => {
+        if (input) {
+            // منع اللصق (Paste)
+            input.addEventListener('paste', function(e) {
+                e.preventDefault();
+                alert("⚠️ اللصق غير مسموح لمنع الاختراق.. يرجى كتابة البيانات يدوياً.");
+            });
+
+            // منع النسخ (Copy)
+            input.addEventListener('copy', function(e) {
+                e.preventDefault();
+            });
+
+            // منع القص (Cut)
+            input.addEventListener('cut', function(e) {
+                e.preventDefault();
+            });
+
+            // منع سحب وإفلات النصوص داخل الحقل (Drag & Drop)
+            input.addEventListener('drop', function(e) {
+                e.preventDefault();
+            });
+        }
+    });
+
+    // 2. منع تحديد النصوص ونسخها بالكامل في قسم الشهادات وقسم تسجيل الدخول
+    const protectedSections = [
+        document.getElementById('verify'),
+        document.getElementById('course-lock-zone')
+    ];
+
+    protectedSections.forEach(section => {
+        if (section) {
+            // منع النسخ داخل القسم بالكامل
+            section.addEventListener('copy', function(e) {
+                e.preventDefault();
+                alert("⚠️ عذراً، نسخ النصوص محظور في هذا القسم لمنع الاختراق.");
+            });
+
+            // إجبار المتصفح على عدم السماح بتحديد النص (Highlight)
+            section.style.userSelect = "none";
+            section.style.webkitUserSelect = "none";
+            section.style.msUserSelect = "none";
+            section.style.mozUserSelect = "none";
+        }
+    });
+});
+
 </script>
 
 <button id="theme-btn" onclick="toggleTheme()">
