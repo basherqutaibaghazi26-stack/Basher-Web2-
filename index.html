@@ -2633,6 +2633,79 @@ document.addEventListener('contextmenu', function(e) {
     }, 100); 
 })();
 
+// ==========================================
+// نظام بشير للحماية من تصوير الشاشة (Anti-Screenshot)
+// ==========================================
+
+// تحديد الأقسام الحساسة المراد حمايتها
+const sensitiveSections = [
+    document.getElementById('course-lock-zone'), // قسم تسجيل الدخول
+    document.getElementById('lecture-content'),  // قسم المحاضرات
+    document.getElementById('verify')            // قسم الشهادات
+];
+
+// 1. نظام التعتيم التلقائي عند فتح أداة القص أو الخروج من المتصفح
+window.addEventListener('blur', function() {
+    sensitiveSections.forEach(section => {
+        // إذا كان القسم مفتوحاً وظاهراً أمام المستخدم
+        if (section && section.style.display !== 'none') {
+            section.classList.add('secure-blackout'); // تشويش وتسويد كامل
+            
+            // إيقاف الفيديو إذا كان يعمل
+            const video = document.getElementById('mainVideo');
+            if(video) video.pause();
+        }
+    });
+});
+
+// إرجاع الشاشة لطبيعتها عند العودة للمتصفح
+window.addEventListener('focus', function() {
+    sensitiveSections.forEach(section => {
+        if (section) {
+            section.classList.remove('secure-blackout');
+        }
+    });
+});
+
+// 2. مراقبة أزرار الكيبورد الخاصة بالتصوير (Print Screen و اختصارات القص)
+document.addEventListener('keyup', function(e) {
+    if (e.key === 'PrintScreen' || e.keyCode === 44) {
+        // تفريغ الحافظة (Clipboard) وكتابة رسالة تحذيرية بدلاً من الصورة
+        navigator.clipboard.writeText("⚠️ نظام الحماية: يمنع التقاط الشاشة في أقسام المحاضرات والشهادات لحماية حقوق الملكية.");
+        alert("🚫 نظام الحماية: تصوير الشاشة محظور لحماية بياناتك وحقوق المدرب.");
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    // مراقبة اختصارات أداة القص في ويندوز (Win + Shift + S) وماك (Cmd + Shift + 3/4)
+    if ((e.metaKey && e.shiftKey) || (e.ctrlKey && e.shiftKey && e.key === 'S')) {
+        sensitiveSections.forEach(section => {
+            if (section && section.style.display !== 'none') {
+                section.classList.add('secure-blackout');
+                
+                // إرجاعها بعد 4 ثواني (المدة التقريبية لأخذ لقطة الشاشة)
+                setTimeout(() => {
+                    section.classList.remove('secure-blackout');
+                }, 4000);
+            }
+        });
+        navigator.clipboard.writeText("⚠️ محاولة تصوير شاشة غير مصرح بها.");
+    }
+});
+
+// 3. منع التحديد والنسخ في هذه الأقسام
+sensitiveSections.forEach(section => {
+    if(section) {
+        section.style.userSelect = "none";
+        section.style.webkitUserSelect = "none";
+        
+        // منع الزر الأيمن المخصص لكل قسم
+        section.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert("عذراً، الزر الأيمن معطل في مناطق الحماية.");
+        });
+    }
+});
 
 </script>
 
@@ -2711,6 +2784,16 @@ document.addEventListener('contextmenu', function(e) {
         body, .main-card, button, input {
             transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease;
         }
+
+        /* كلاس الحماية القوي لتسويد وتشويش الشاشة بالكامل */
+.secure-blackout {
+    filter: blur(100px) grayscale(100%) brightness(0) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    transition: 0s !important; /* بدون تدرج زمني ليكون الاخفاء فورياً */
+}
+
     </style>
 
     <div id="projectModal" class="modal">
