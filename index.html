@@ -2187,7 +2187,7 @@ const coursesData = {
     python: {
         title: "كورس برمجة بايثون 🐍",
         secretCode: "PY-2026", // الكود الخاص بهذا الكورس
-        allowedEmails: ["basher@gmail.com" , "maryambahjat80@gmail.com","husseinali.ha90@gmail.com","anasfiras152@gmail.com","mrem98946@gmail.com","hussen.wkh1900@gmail.com"],
+        allowedEmails: ["basher@gmail.com" , "maryambahjat80@gmail.com","husseinali.ha90@gmail.com","anasfiras152@gmail. com"],
         lessons: [ 
         { id: "https://youtu.be/a7GM9_xEIP4", name: " المحاضرة الاولى" } ,
         { id: "https://youtu.be/8jctiQIgduU", name: "المحاضرة الثانية الجزء الاول" },
@@ -2632,84 +2632,6 @@ document.addEventListener('contextmenu', function(e) {
         debugger;
     }, 100); 
 })();
-
-const threshold = 160; // الحجم التقريبي لنافذة الـ Inspect
-setInterval(function() {
-    if (window.outerWidth - window.innerWidth > threshold || 
-        window.outerHeight - window.innerHeight > threshold) {
-        
-        // إذا فتح الـ Inspect، نفرغ الصفحة فوراً
-        document.body.innerHTML = `
-            <div style="height:100vh; display:flex; justify-content:center; align-items:center; background:#000; color:#ff5252; font-family:Cairo; text-align:center; padding:20px;">
-                <h1>⚠️ تم كشف محاولة اختراق للنظام!<br>تم إغلاق الجلسة لأسباب أمنية.</h1>
-            </div>`;
-        
-        // إرسال رسالة تحذيرية في الكونسول لتخويفه
-        console.clear();
-        console.log("%cتوقف!", "color: red; font-size: 40px; font-weight: bold;");
-        console.log("%cمحاولة الدخول إلى أدوات المطورين مسجلة بعنوان IP الخاص بك.", "font-size: 20px;");
-    }
-}, 1000);
-
-// متغيرات العقوبة
-let inspectViolationCount = 0;
-const MAX_VIOLATIONS = 3;
-
-// 1. فحص إذا كان الطالب "محظوراً" مسبقاً عند تحميل الصفحة
-window.addEventListener('load', function() {
-    const userEmail = document.getElementById('studentEmailInput').value || localStorage.getItem('last_user_email');
-    if (localStorage.getItem('isBanned_' + userEmail) === 'true') {
-        applyPermanentBan(userEmail);
-    }
-});
-
-// 2. دالة كشف التلاعب (نستدعيها داخل كود كشف الـ Inspect)
-function reportViolation() {
-    const threshold = 160;
-setInterval(function() {
-    if (window.outerWidth - window.innerWidth > threshold || 
-        window.outerHeight - window.innerHeight > threshold) {
-        
-        // بدلاً من مسح الصفحة فقط، سنقوم "بالتبليغ عن مخالفة"
-        reportViolation();
-    }
-}, 2000); // نفحص كل ثانيتين
-
-    const userEmail = document.getElementById('studentEmailInput').value || "Guest";
-    inspectViolationCount++;
-    
-    if (inspectViolationCount < MAX_VIOLATIONS) {
-        alert(`⚠️ تحذير أمني (${inspectViolationCount}/${MAX_VIOLATIONS}): محاولة الدخول لأدوات المطورين محظورة. تكرار ذلك سيؤدي لحظر حسابك!`);
-        // تغبيش الشاشة كتحذير
-        document.body.style.filter = "blur(15px)";
-        setTimeout(() => { document.body.style.filter = "none"; }, 3000);
-    } else {
-        // تنفيذ الحظر النهائي
-        applyPermanentBan(userEmail);
-    }
-}
-
-function applyPermanentBan(email) {
-    localStorage.setItem('isBanned_' + email, 'true');
-    localStorage.setItem('last_user_email', email);
-    
-    document.getElementById('banned-screen').style.display = 'flex';
-    document.getElementById('banned-email-display').innerText = email;
-    
-    // إيقاف أي ميديا شغالة
-    const video = document.getElementById('mainVideo');
-    if(video) video.pause();
-    
-    speak("لقد تم حظر وصولك للمنصة بسبب محاولة الاختراق");
-}
-
-// 3. دالة فك الحظر (لك أنت يا بشير فقط لتجربتها)
-// اكتبها في الكونسول لفك حظرك الشخصي أثناء البرمجة
-function basherUnban(email) {
-    localStorage.removeItem('isBanned_' + email);
-    alert("تم فك الحظر عن: " + email + " - أهلاً بك يا آدمن");
-    location.reload();
-}
 
 
 </script>
