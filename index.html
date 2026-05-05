@@ -1386,8 +1386,7 @@
         <div id="chat-options">
             <button onclick="botReply('price1')">💰 سعر الدورات</button>
             <button onclick="botReply('price2')">🆔 عروض خاصة</button>
-            <button onclick="botReply('detail1')">📋 تفاصيل دورة برمجة بايثون</button>
-            <button onclick="botReply('detail2')">📋 تفاصيل دورة اساسيات الحاسوب</button>
+            <button onclick="botReply('detail1')">📋 تسجيل المحاضرات </button>
             <button onclick="botReply('appear1')">🏠 نظام الدورات</button>
             <button onclick="botReply('appear2')">👨‍🏫 الدورات المدمجة</button>
             <button onclick="botReply('cert')">🎓 الشهادات</button>
@@ -1552,6 +1551,10 @@
             case 'cert':
                 userText = "هل الشهادة معتمدة؟";
                 botText = "نعم، تحصل على شهادة معتمدة دولياً من معهد فريق النجاح الدولي، ويمكنك التحقق من صحتها عبر نظام الشهادات في هذا الموقع.";
+                break;
+            case 'detail1':
+                userText = "هل المحاضرات مسجلة؟";
+                botText = "نعم، تكون محاضرات الأونلاين على كوكل ميت الساعة الثامنة مساءاً ولمدة ثلاث ساعات وتُسجل وتُرسل لمن لايحضر بسبب ظرف معين ولكن المحاضرات الحضورية لاتُسجل المحاضرات حتى نجبر الطلاب يكتبون ملاحظات ويُسجلون المحاضرات بنفسهم حتى يصبح نشاط في القاعة .";
                 break;
             case 'appear1':
                 userText = "هل دورات المدرب بشير حضوري ام اونلاين؟";
