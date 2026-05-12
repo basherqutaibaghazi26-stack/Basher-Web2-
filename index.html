@@ -13,12 +13,12 @@
     <style>
     
     .project-img {
-            width: 100%; 
-            max-height: 250px; 
-            object-fit: cover; 
-            border-radius: 15px; 
-            margin: 15px 0; 
-            border: 1px solid rgba(0, 209, 255, 0.2); 
+            width: 100%; /* الصورة تأخذ عرض البطاقة بالكامل */
+            max-height: 250px; /* أقصى ارتفاع للصورة حتى لا تأخذ مساحة طويلة */
+            object-fit: cover; /* لقص الصورة بشكل متناسق دون أن تنضغط أو تتشوه */
+            border-radius: 15px; /* حواف دائرية تناسب تصميم الموقع */
+            margin: 15px 0; /* مسافة أعلى وأسفل الصورة */
+            border: 1px solid rgba(0, 209, 255, 0.2); /* إطار أزرق خفيف وجميل */
         }
 
 #course-lock-zone {
@@ -616,7 +616,7 @@
             </details>
 
             <details>
-                <summary> ما هو اسم المدرب؟ </summary>
+                <summary>  ما هو اسم المدرب؟ </summary>
                 <div class="answer"> المدرب بشير قتيبة من جامعة النهرين في كلية هندسة المعلومات من قسم هندسة الاتمتة والذكاء الاصطناعي </div>
             </details>
 
@@ -726,10 +726,8 @@
         <div id="about" class="main-card active" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
             <img src="me.jpg" class="profile-pic" alt="Profile">
             <h1>من هو بشير؟</h1>
-            <div class="typewriter" style="color: var(--accent-color); margin-bottom: 15px;">
-                المدرب المعتمد في معهد فريق النجاح الدولي في الامارات
-            </div>
-            <p class="answer">وايضاً طالب في جامعة النهرين - كلية هندسة المعلومات  قسم هندسة الاتمتة والذكاء الاصطناعي - أسعى لبناء انظمة اتمتة ذكية تخدم المستقبل.</p>
+            <div class="typewriter" style="color: var(--accent-color); margin-bottom: 15px;"           </div>المدرب المعتمد بشير قتيبة في معهد فريق النجاح الدولي في الامارات 
+            <p class="answer"> قسم هندسة الاتمتة والذكاء الاصطناعي - أسعى لبناء انظمة اتمتة ذكية تخدم المستقبل.</p>
             <div style="margin-top: 20px; font-size: 2rem;">
                 🤖 ⚡ 🧠
             </div>
@@ -1386,7 +1384,8 @@
         <div id="chat-options">
             <button onclick="botReply('price1')">💰 سعر الدورات</button>
             <button onclick="botReply('price2')">🆔 عروض خاصة</button>
-            <button onclick="botReply('detail1')">📋 تسجيل المحاضرات </button>
+            <button onclick="botReply('detail1')">📋 تفاصيل دورة برمجة بايثون</button>
+            <button onclick="botReply('detail2')">📋 تفاصيل دورة اساسيات الحاسوب</button>
             <button onclick="botReply('appear1')">🏠 نظام الدورات</button>
             <button onclick="botReply('appear2')">👨‍🏫 الدورات المدمجة</button>
             <button onclick="botReply('cert')">🎓 الشهادات</button>
@@ -1546,19 +1545,25 @@
                 break;
             case 'price2':
                 userText = "هل يوجد خصومات او عروض خاصة لدورات المدرب بشير؟";
-                botText = "نعم يوجد ثلاث عروض خاصة لدورات المدرب بشير... العرض الاول: اي شخص ينشر المنصة ستوري على الانستكرام يحصل على خصم 10% ... العرض الثاني: اي شخص كان ملتزم مع الدورات السابقة للمدرب بشير يحصل على خصم 20% ... العرض الثالث: اي طالب ينشر المنصة الى جامعته عبر الكروبات العامة يحصل على خصم 50%";
+                botText = "نعم يوجد ثلاث عروض خاصة لدورات المدرب بشير... العرض الاول: اي شخص ينشر الدورة ستوري على الانستكرام يحصل على خصم 10% ... العرض الثاني: اي شخص كان ملتزم مع دورات المدرب بشير يحصل على خصم 20% ... العرض الثالث: اي طالب ينشر الدورة الى جامعته عبر الكروبات العامة وجابلي عدد من طرفه يحصل على خصم 50%";
                 break;
             case 'cert':
                 userText = "هل الشهادة معتمدة؟";
-                botText = "نعم، تحصل على شهادة معتمدة دولياً من معهد فريق النجاح الدولي، ويمكنك التحقق من صحتها عبر نظام الشهادات في هذا الموقع.";
+                botText = "نعم، تحصل على شهادة مشاركة من معهد النجاح، ويمكنك التحقق من صحتها عبر نظام الشهادات في هذا الموقع.";
                 break;
             case 'detail1':
-                userText = "هل المحاضرات مسجلة؟";
-                botText = "نعم، تكون محاضرات الأونلاين على كوكل ميت الساعة الثامنة مساءاً ولمدة ثلاث ساعات وتُسجل وتُرسل لمن لايحضر بسبب ظرف معين ولكن المحاضرات الحضورية لاتُسجل المحاضرات حتى نجبر الطلاب يكتبون ملاحظات ويُسجلون المحاضرات بنفسهم حتى يصبح نشاط في القاعة .";
+                userText = "ما هي تفاصيل دورة برمجة بايثون؟";
+                botText = "تفاصيل الدورة موجودة في موقع المدرب بشير";
+                showPage('python-details', document.querySelectorAll('.nav-btn')[3]);
+                break;
+            case 'detail2':
+                userText = "ما هي تفاصيل دورة اساسيات الحاسوب؟";
+                botText = "تفاصيل الدورة موجودة في موقع المدرب بشير";
+                showPage('computer-details', document.querySelectorAll('.nav-btn')[3]);
                 break;
             case 'appear1':
                 userText = "هل دورات المدرب بشير حضوري ام اونلاين؟";
-                botText = "يوجد دورات اونلاين ويوجد دورات حضوري ... بالنسبة لدورات الاونلاين تكون على كوكل ميت وتُسجل اثناء البث وتُرسل المحاضرة لمن لايحضر بسبب ظرف معين ... وبالنسبة للحضوري تكون في معهد فريق النجاح الدولي في فرع العراق - الاعظمية وايضاً تُعاد الدورات في مراكز وزارة التعليم المستمر في معظم الجامعات في بغداد ورُبما تكون ايضاً في نقابة المهندسين في العراق - بغداد    ";
+                botText = "الدورات اونلاين ومدمج لايوجد حضوري لان بشير هو مدرب من معهد النجاح في بيروت ولكن بشير ساكن في العراق لايستطيع ان يؤدي الدورات حضورياً لبعد المسافة ";
                 break;
             case 'appear2':
                 userText = "ماذا يعني مدمج؟";
@@ -2041,57 +2046,46 @@ function showNotification() {
         }
     })();
 
-    const navBar = document.querySelector('.nav-bar');
-    
-    // متغيرات لحفظ مكان اللمس
-    let isDragging = false;
-    let touchOffsetX = 0;
-    let touchOffsetY = 0;
+const navBar = document.querySelector('.nav-bar');
 
-    // 1. عند وضع الإصبع (بدء اللمس)
-    navBar.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        const touch = e.touches[0];
-        
-        // حساب المسافة بين مكان الإصبع وحافة القائمة
-        const rect = navBar.getBoundingClientRect();
-        touchOffsetX = touch.clientX - rect.left;
-        touchOffsetY = touch.clientY - rect.top;
-        
-        // تغيير شكل القائمة لتبدو وكأنها "ممسوكة"
-        navBar.style.opacity = "0.8";
-        navBar.style.border = "2px solid #00D1FF";
-    }, { passive: false });
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
 
-    // 2. عند تحريك الإصبع
-    navBar.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        
-        // منع الشاشة من التحرك (Scroll) أثناء سحب القائمة
-        e.preventDefault(); 
-        
-        const touch = e.touches[0];
-        
-        // حساب الموقع الجديد
-        let newLeft = touch.clientX - touchOffsetX;
-        let newTop = touch.clientY - touchOffsetY;
+navBar.addEventListener('touchstart', (e) => {
+    isDragging = true;
 
-        // تطبيق الموقع الجديد
-        navBar.style.left = newLeft + 'px';
-        navBar.style.top = newTop + 'px';
-        
-        // ملاحظة مهمة: نلغي التموضع القديم
-        navBar.style.bottom = 'auto'; 
-        navBar.style.transform = 'scale(0.9)'; // نحافظ على التصغير لكن نلغي التوسيط التلقائي
-        
-    }, { passive: false });
+    const touch = e.touches[0];
+    const rect = navBar.getBoundingClientRect();
 
-    // 3. عند رفع الإصبع (انتهاء اللمس)
-    navBar.addEventListener('touchend', () => {
-        isDragging = false;
-        navBar.style.opacity = "1";
-        navBar.style.border = "1px solid rgba(0, 209, 255, 0.5)"; // إرجاع الحدود لطبيعتها
-    });
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
+
+    navBar.style.transition = "none";
+});
+
+navBar.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+
+    e.preventDefault();
+
+    const touch = e.touches[0];
+
+    let x = touch.clientX - offsetX;
+    let y = touch.clientY - offsetY;
+
+    navBar.style.left = x + "px";
+    navBar.style.top = y + "px";
+
+    /* إلغاء التوسيط التلقائي أثناء السحب */
+    navBar.style.transform = "scale(0.9)";
+});
+
+navBar.addEventListener('touchend', () => {
+    isDragging = false;
+
+    navBar.style.transition = "0.3s";
+});
 
     function toggleTheme() {
         const body = document.body;
@@ -2180,7 +2174,7 @@ const coursesData = {
     python: {
         title: "كورس برمجة بايثون 🐍",
         secretCode: "PY-2026", // الكود الخاص بهذا الكورس
-        allowedEmails: ["basher@gmail.com" , "maryambahjat80@gmail.com","husseinali.ha90@gmail.com","anasfiras152@gmail. com", shamsahmed7108@gmail.com],
+        allowedEmails: ["basher@gmail.com" , "maryambahjat80@gmail.com","husseinali.ha90@gmail.com","anasfiras152@gmail. com"],
         lessons: [ 
         { id: "https://youtu.be/a7GM9_xEIP4", name: " المحاضرة الاولى" } ,
         { id: "https://youtu.be/8jctiQIgduU", name: "المحاضرة الثانية الجزء الاول" },
@@ -2847,6 +2841,51 @@ document.addEventListener("DOMContentLoaded", function() {
     user-select: none !important;
     transition: 0s !important; /* بدون تدرج زمني ليكون الاخفاء فورياً */
 }
+
+@media screen and (max-width: 600px) {
+
+    .nav-bar {
+        position: fixed !important;
+
+        /* وضعه في منتصف الشاشة */
+        top: 50% !important;
+        left: 50% !important;
+
+        /* توسيطه تماماً */
+        transform: translate(-50%, -50%) scale(0.9) !important;
+
+        width: 85%;
+        max-width: 320px;
+
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+
+        padding: 10px;
+        border-radius: 15px;
+
+        background: rgba(16, 20, 30, 0.95);
+        border: 1px solid rgba(0, 209, 255, 0.5);
+
+        z-index: 9999;
+
+        backdrop-filter: blur(10px);
+
+        touch-action: none;
+    }
+
+    .nav-btn {
+        width: 100%;
+        padding: 8px 5px !important;
+        font-size: 0.75rem !important;
+        min-height: 40px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 
     </style>
 
