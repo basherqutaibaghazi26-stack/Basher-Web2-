@@ -1021,33 +1021,48 @@
         });
 
         function showPage(pageId, btn) {
-            // إخفاء كل الواجهات
-            const cards = document.querySelectorAll('.main-card');
-            cards.forEach(card => {
-                card.style.display = 'none';
-                card.classList.remove('active');
-            });
-            
-            // إزالة التنشيط من الأزرار
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-btn'));
-            
-            // إظهار الواجهة المختارة مع الأنيميشن
-            const activeCard = document.getElementById(pageId);
-            activeCard.style.display = 'block';
-            
-            // تأخير بسيط لتفعيل كلاس الحركة
-            setTimeout(() => {
-                activeCard.classList.add('active');
-            }, 10);
 
-            // تنشيط الزر
-            btn.classList.add('active-btn');
-            
-            // اهتزاز خفيف للموبايل عند الضغط (Haptic Feedback)
-            if (navigator.vibrate) navigator.vibrate(20);
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    // إخفاء كل الصفحات
+    document.querySelectorAll('.main-card').forEach(card => {
+        card.style.display = 'none';
+        card.classList.remove('active');
+    });
+
+    // إزالة التفعيل
+    document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.remove('active-btn');
+    });
+
+    // البحث عن الصفحة
+    const activeCard = document.getElementById(pageId);
+
+    // إذا الصفحة غير موجودة
+    if (!activeCard) {
+        console.error("الواجهة غير موجودة:", pageId);
+        return;
+    }
+
+    // إظهار الصفحة
+    activeCard.style.display = 'block';
+
+    setTimeout(() => {
+        activeCard.classList.add('active');
+    }, 10);
+
+    // تفعيل الزر
+    if(btn){
+        btn.classList.add('active-btn');
+    }
+
+    // اهتزاز
+    if (navigator.vibrate) navigator.vibrate(20);
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
     </script>
 <script>
     function fetchCertificate() {
@@ -2045,60 +2060,49 @@ function showNotification() {
             if(btn) btn.innerText = "☀️";
         }
     })();
+const navBar = document.querySelector('.nav-bar');
 
+let isDragging = false;
 
-    const navBar = document.querySelector('.nav-bar');
-    
-    // متغيرات لحفظ مكان اللمس
-    let isDragging = false;
-    let touchOffsetX = 0;
-    let touchOffsetY = 0;
+let offsetX = 0;
+let offsetY = 0;
 
-    // 1. عند وضع الإصبع (بدء اللمس)
-    navBar.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        const touch = e.touches[0];
-        
-        // حساب المسافة بين مكان الإصبع وحافة القائمة
-        const rect = navBar.getBoundingClientRect();
-        touchOffsetX = touch.clientX - rect.left;
-        touchOffsetY = touch.clientY - rect.top;
-        
-        // تغيير شكل القائمة لتبدو وكأنها "ممسوكة"
-        navBar.style.opacity = "0.8";
-        navBar.style.border = "2px solid #00D1FF";
-    }, { passive: false });
+navBar.addEventListener('touchstart', (e)=>{
 
-    // 2. عند تحريك الإصبع
-    navBar.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        
-        // منع الشاشة من التحرك (Scroll) أثناء سحب القائمة
-        e.preventDefault(); 
-        
-        const touch = e.touches[0];
-        
-        // حساب الموقع الجديد
-        let newLeft = touch.clientX - touchOffsetX;
-        let newTop = touch.clientY - touchOffsetY;
+    isDragging = true;
 
-        // تطبيق الموقع الجديد
-        navBar.style.left = newLeft + 'px';
-        navBar.style.top = newTop + 'px';
-        
-        // ملاحظة مهمة: نلغي التموضع القديم
-        navBar.style.bottom = 'auto'; 
-        navBar.style.transform = 'scale(0.9)'; // نحافظ على التصغير لكن نلغي التوسيط التلقائي
-        
-    }, { passive: false });
+    const touch = e.touches[0];
 
-    // 3. عند رفع الإصبع (انتهاء اللمس)
-    navBar.addEventListener('touchend', () => {
-        isDragging = false;
-        navBar.style.opacity = "1";
-        navBar.style.border = "1px solid rgba(0, 209, 255, 0.5)"; // إرجاع الحدود لطبيعتها
-    });
-    
+    const rect = navBar.getBoundingClientRect();
+
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
+
+    navBar.style.left = rect.left + "px";
+    navBar.style.top = rect.top + "px";
+
+    navBar.style.bottom = "auto";
+
+    navBar.style.transform = "none";
+});
+
+navBar.addEventListener('touchmove', (e)=>{
+
+    if(!isDragging) return;
+
+    e.preventDefault();
+
+    const touch = e.touches[0];
+
+    navBar.style.left = (touch.clientX - offsetX) + "px";
+    navBar.style.top = (touch.clientY - offsetY) + "px";
+});
+
+navBar.addEventListener('touchend', ()=>{
+
+    isDragging = false;
+
+});
 
 
     function toggleTheme() {
