@@ -2046,6 +2046,61 @@ function showNotification() {
         }
     })();
 
+    
+const navBar = document.querySelector('.nav-bar');
+
+let isDragging = false;
+let offsetX = 0;
+
+navBar.addEventListener('touchstart', (e) => {
+    isDragging = true;
+
+    const touch = e.touches[0];
+    const rect = navBar.getBoundingClientRect();
+
+    offsetX = touch.clientX - rect.left;
+
+    navBar.style.transition = "none";
+});
+
+navBar.addEventListener('touchmove', (e) => {
+
+    if (!isDragging) return;
+
+    e.preventDefault();
+
+    const touch = e.touches[0];
+
+    let x = touch.clientX - offsetX;
+
+    // منع خروج القائمة من الشاشة
+    const maxX = window.innerWidth - navBar.offsetWidth;
+
+    if (x < 0) x = 0;
+    if (x > maxX) x = maxX;
+
+    // تحريك أفقي فقط
+    navBar.style.left = x + "px";
+
+    // تثبيت الأسفل دائماً
+    navBar.style.bottom = "15px";
+
+    // حذف top نهائياً
+    navBar.style.top = "auto";
+
+    // مهم جداً
+    navBar.style.transform = "none";
+
+});
+
+navBar.addEventListener('touchend', () => {
+
+    isDragging = false;
+
+    navBar.style.transition = "0.3s";
+
+});
+
 
     function toggleTheme() {
         const body = document.body;
