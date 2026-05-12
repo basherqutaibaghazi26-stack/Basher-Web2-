@@ -2045,49 +2045,60 @@ function showNotification() {
             if(btn) btn.innerText = "☀️";
         }
     })();
-const navBar = document.querySelector('.nav-bar');
 
-let isDragging = false;
 
-let offsetX = 0;
-let offsetY = 0;
+    const navBar = document.querySelector('.nav-bar');
+    
+    // متغيرات لحفظ مكان اللمس
+    let isDragging = false;
+    let touchOffsetX = 0;
+    let touchOffsetY = 0;
 
-navBar.addEventListener('touchstart', (e)=>{
+    // 1. عند وضع الإصبع (بدء اللمس)
+    navBar.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        const touch = e.touches[0];
+        
+        // حساب المسافة بين مكان الإصبع وحافة القائمة
+        const rect = navBar.getBoundingClientRect();
+        touchOffsetX = touch.clientX - rect.left;
+        touchOffsetY = touch.clientY - rect.top;
+        
+        // تغيير شكل القائمة لتبدو وكأنها "ممسوكة"
+        navBar.style.opacity = "0.8";
+        navBar.style.border = "2px solid #00D1FF";
+    }, { passive: false });
 
-    isDragging = true;
+    // 2. عند تحريك الإصبع
+    navBar.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        
+        // منع الشاشة من التحرك (Scroll) أثناء سحب القائمة
+        e.preventDefault(); 
+        
+        const touch = e.touches[0];
+        
+        // حساب الموقع الجديد
+        let newLeft = touch.clientX - touchOffsetX;
+        let newTop = touch.clientY - touchOffsetY;
 
-    const touch = e.touches[0];
+        // تطبيق الموقع الجديد
+        navBar.style.left = newLeft + 'px';
+        navBar.style.top = newTop + 'px';
+        
+        // ملاحظة مهمة: نلغي التموضع القديم
+        navBar.style.bottom = 'auto'; 
+        navBar.style.transform = 'scale(0.9)'; // نحافظ على التصغير لكن نلغي التوسيط التلقائي
+        
+    }, { passive: false });
 
-    const rect = navBar.getBoundingClientRect();
-
-    offsetX = touch.clientX - rect.left;
-    offsetY = touch.clientY - rect.top;
-
-    navBar.style.left = rect.left + "px";
-    navBar.style.top = rect.top + "px";
-
-    navBar.style.bottom = "auto";
-
-    navBar.style.transform = "none";
-});
-
-navBar.addEventListener('touchmove', (e)=>{
-
-    if(!isDragging) return;
-
-    e.preventDefault();
-
-    const touch = e.touches[0];
-
-    navBar.style.left = (touch.clientX - offsetX) + "px";
-    navBar.style.top = (touch.clientY - offsetY) + "px";
-});
-
-navBar.addEventListener('touchend', ()=>{
-
-    isDragging = false;
-
-});
+    // 3. عند رفع الإصبع (انتهاء اللمس)
+    navBar.addEventListener('touchend', () => {
+        isDragging = false;
+        navBar.style.opacity = "1";
+        navBar.style.border = "1px solid rgba(0, 209, 255, 0.5)"; // إرجاع الحدود لطبيعتها
+    });
+    
 
 
     function toggleTheme() {
@@ -2844,74 +2855,76 @@ document.addEventListener("DOMContentLoaded", function() {
     user-select: none !important;
     transition: 0s !important; /* بدون تدرج زمني ليكون الاخفاء فورياً */
 }
-@media screen and (max-width: 600px){
 
-    .nav-bar{
-
-        position: fixed !important;
-
-        bottom: 70px;
-        left: 50%;
-
-        transform: translateX(-50%);
-
-        width: 140px !important;
-        height: auto;
-
-        padding: 5px;
-
-        display: flex !important;
-        flex-direction: column;
-
-        gap: 4px;
-
-        background: rgba(10,15,25,0.92);
-
-        border: 1px solid rgba(0,209,255,0.25);
-
-        border-radius: 14px;
-
-        backdrop-filter: blur(10px);
-
-        z-index: 9999;
-
-        box-shadow: 0 0 20px rgba(0,209,255,0.12);
-
-        touch-action: none;
-
-        overflow: hidden;
+/* =========================================
+       تصميم الموبايل المصغر (Mini Grid)
+       ========================================= */
+    @media screen and (max-width: 600px) {
+        /* إضافة "مقبض" صغير في أعلى القائمة */
+    .nav-bar::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3); /* لون رمادي خفيف */
+        margin: 0 auto 10px auto; /* توسيط ومسافة من الأسفل */
+        border-radius: 10px;
     }
+        .nav-bar {
+            /* 1. الحجم والتموضع */
+            position: fixed;
+            bottom: 70px; /* نرفعها لتكون فوق العداد بوضوح */
+            left: 50%;
+            /* التريك هنا: نحركها للوسط ثم نصغر حجمها الكلي بنسبة 0.9 */
+            transform: translateX(-50%) scale(0.9) !important; 
+            
+            width: 80%; /* عرض أقل لتكون ملمومة */
+            max-height: 35vh; /* ارتفاع قصير */
+            
+            /* 2. الشبكة */
+            display: grid !important;
+            grid-template-columns: 1fr 1fr; /* عمودين */
+            gap: 6px; /* مسافة صغيرة جداً بين الأزرار */
+            padding: 8px; /* حشوة صغيرة */
+            
+            /* 3. الجماليات */
+            background: rgba(16, 20, 30, 0.95);
+            border: 1px solid rgba(0, 209, 255, 0.5); /* إطار ناعم */
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 9990;
+            
+            /* إلغاء الستايل القديم */
+            flex-direction: unset !important;
+            flex-wrap: unset !important;
+            overflow-y: auto;
+        }
 
-    .nav-btn{
+        /* تصغير الأزرار والكتابة */
+        .nav-btn {
+            width: 100%;
+            margin: 0 !important;
+            padding: 6px 2px !important; /* زر رشيق */
+            font-size: 0.75rem !important; /* خط ناعم وصغير */
+            height: auto;
+            min-height: 35px; /* ارتفاع ثابت صغير */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        width: 100% !important;
+        /* سكرول بار مخفي تقريباً */
+        .nav-bar::-webkit-scrollbar { width: 3px; }
+        .nav-bar::-webkit-scrollbar-thumb { background: #00D1FF; }
 
-        min-height: 26px !important;
-
-        padding: 4px !important;
-
-        font-size: 0.58rem !important;
-
-        border-radius: 8px;
-
-        background: rgba(255,255,255,0.03);
-
-        border: none;
-
-        color: white;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        /* ترتيب أزرار الشات والصوت لتبقى بعيدة */
+        #chat-trigger { bottom: 20px !important; left: 20px !important; transform: scale(0.8); }
+        #voice-btn { bottom: 20px !important; left: auto !important; right: 20px !important; transform: scale(0.8); }
+        
+        /* إخفاء الإشعارات في الموبايل أو رفعها للأعلى جداً */
+        .toast-container { top: 10px !important; bottom: auto !important; transform: scale(0.8); left: 2% !important; }
     }
-
-    .nav-btn.active-btn{
-        background: linear-gradient(135deg,#00D1FF,#005bea);
-    }
-
-}
-
-
+    
 
     </style>
 
