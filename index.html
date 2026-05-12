@@ -2045,15 +2045,14 @@ function showNotification() {
             if(btn) btn.innerText = "☀️";
         }
     })();
-
 const navBar = document.querySelector('.nav-bar');
 
 let isDragging = false;
 
-let startX = 0;
-let startY = 0;
+let offsetX = 0;
+let offsetY = 0;
 
-navBar.addEventListener('touchstart', (e) => {
+navBar.addEventListener('touchstart', (e)=>{
 
     isDragging = true;
 
@@ -2061,44 +2060,33 @@ navBar.addEventListener('touchstart', (e) => {
 
     const rect = navBar.getBoundingClientRect();
 
-    startX = touch.clientX - rect.left;
-    startY = touch.clientY - rect.top;
-
-    navBar.style.transition = "none";
-
-    navBar.style.transform = "none";
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
 
     navBar.style.left = rect.left + "px";
     navBar.style.top = rect.top + "px";
 
     navBar.style.bottom = "auto";
+
+    navBar.style.transform = "none";
 });
 
-navBar.addEventListener('touchmove', (e) => {
+navBar.addEventListener('touchmove', (e)=>{
 
-    if (!isDragging) return;
+    if(!isDragging) return;
 
     e.preventDefault();
 
     const touch = e.touches[0];
 
-    let x = touch.clientX - startX;
-    let y = touch.clientY - startY;
-
-    /* منع الخروج خارج الشاشة */
-    x = Math.max(0, Math.min(window.innerWidth - navBar.offsetWidth, x));
-
-    y = Math.max(0, Math.min(window.innerHeight - navBar.offsetHeight, y));
-
-    navBar.style.left = x + "px";
-    navBar.style.top = y + "px";
+    navBar.style.left = (touch.clientX - offsetX) + "px";
+    navBar.style.top = (touch.clientY - offsetY) + "px";
 });
 
-navBar.addEventListener('touchend', () => {
+navBar.addEventListener('touchend', ()=>{
 
     isDragging = false;
 
-    navBar.style.transition = "0.2s";
 });
 
 
@@ -2856,99 +2844,69 @@ document.addEventListener("DOMContentLoaded", function() {
     user-select: none !important;
     transition: 0s !important; /* بدون تدرج زمني ليكون الاخفاء فورياً */
 }
+@media screen and (max-width: 600px){
 
-@media screen and (max-width: 600px) {
-
-    .nav-bar {
+    .nav-bar{
 
         position: fixed !important;
 
-        bottom: 75px !important;
-        left: 50% !important;
-
-        transform: translateX(-50%);
-
-        width: 170px;
-        max-width: 170px;
-
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
-
-        gap: 5px;
-
-        padding: 6px;
-
-        background: rgba(10, 14, 22, 0.88);
-
-        border: 1px solid rgba(0, 209, 255, 0.35);
-
-        border-radius: 14px;
-
-        backdrop-filter: blur(12px);
-
-        box-shadow:
-            0 0 20px rgba(0,209,255,0.15),
-            0 0 40px rgba(0,0,0,0.4);
-
-        z-index: 99999;
-
-        transition: 0.2s;
-
-        touch-action: none;
-
-        user-select: none;
-    }
-
-    /* المقبض العلوي */
-    .nav-bar::before {
-
-        content: '';
-
-        position: absolute;
-
-        top: 4px;
+        bottom: 70px;
         left: 50%;
 
         transform: translateX(-50%);
 
-        width: 35px;
-        height: 3px;
+        width: 140px !important;
+        height: auto;
 
-        border-radius: 20px;
+        padding: 5px;
 
-        background: rgba(255,255,255,0.25);
+        display: flex !important;
+        flex-direction: column;
+
+        gap: 4px;
+
+        background: rgba(10,15,25,0.92);
+
+        border: 1px solid rgba(0,209,255,0.25);
+
+        border-radius: 14px;
+
+        backdrop-filter: blur(10px);
+
+        z-index: 9999;
+
+        box-shadow: 0 0 20px rgba(0,209,255,0.12);
+
+        touch-action: none;
+
+        overflow: hidden;
     }
 
-    .nav-btn {
+    .nav-btn{
 
-        width: 100%;
+        width: 100% !important;
 
-        min-height: 30px;
+        min-height: 26px !important;
 
-        padding: 4px 2px !important;
+        padding: 4px !important;
 
         font-size: 0.58rem !important;
 
         border-radius: 8px;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
         background: rgba(255,255,255,0.03);
 
-        border: 1px solid rgba(255,255,255,0.04);
-
-        overflow: hidden;
-    }
-
-    .nav-btn.active-btn {
-
-        background: linear-gradient(135deg,#00D1FF,#005bea);
+        border: none;
 
         color: white;
 
-        box-shadow: 0 0 10px rgba(0,209,255,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-btn.active-btn{
+        background: linear-gradient(135deg,#00D1FF,#005bea);
     }
 
 }
