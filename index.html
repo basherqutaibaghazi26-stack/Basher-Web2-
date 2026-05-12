@@ -726,11 +726,7 @@
         <div id="about" class="main-card active" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
             <img src="me.jpg" class="profile-pic" alt="Profile">
             <h1>من هو بشير؟</h1>
-        <div class="typewriter" style="color: var(--accent-color); margin-bottom: 15px;">
-      المدرب المعتمد بشير قتيبة في معهد فريق النجاح الدولي <br> في الامارات 
-         
-        </div>
-            
+            <div class="typewriter" style="color: var(--accent-color); margin-bottom: 15px;"           </div>المدرب المعتمد بشير قتيبة في معهد فريق النجاح الدولي في الامارات 
             <p class="answer"> قسم هندسة الاتمتة والذكاء الاصطناعي - أسعى لبناء انظمة اتمتة ذكية تخدم المستقبل.</p>
             <div style="margin-top: 20px; font-size: 2rem;">
                 🤖 ⚡ 🧠
@@ -2053,19 +2049,18 @@ function showNotification() {
 const navBar = document.querySelector('.nav-bar');
 
 let isDragging = false;
-let offsetX = 0;
-let offsetY = 0;
+let startX, startY;
 
 navBar.addEventListener('touchstart', (e) => {
     isDragging = true;
 
     const touch = e.touches[0];
-    const rect = navBar.getBoundingClientRect();
 
-    offsetX = touch.clientX - rect.left;
-    offsetY = touch.clientY - rect.top;
+    startX = touch.clientX - navBar.offsetLeft;
+    startY = touch.clientY - navBar.offsetTop;
 
-    navBar.style.transition = "none";
+    /* يلغي التوسيط بعد أول لمسة */
+    navBar.style.transform = "none";
 });
 
 navBar.addEventListener('touchmove', (e) => {
@@ -2075,20 +2070,12 @@ navBar.addEventListener('touchmove', (e) => {
 
     const touch = e.touches[0];
 
-    let x = touch.clientX - offsetX;
-    let y = touch.clientY - offsetY;
-
-    navBar.style.left = x + "px";
-    navBar.style.top = y + "px";
-
-    /* إلغاء التوسيط التلقائي أثناء السحب */
-    navBar.style.transform = "scale(0.9)";
+    navBar.style.left = (touch.clientX - startX) + "px";
+    navBar.style.top = (touch.clientY - startY) + "px";
 });
 
 navBar.addEventListener('touchend', () => {
     isDragging = false;
-
-    navBar.style.transition = "0.3s";
 });
 
     function toggleTheme() {
@@ -2851,12 +2838,9 @@ document.addEventListener("DOMContentLoaded", function() {
     .nav-bar {
         position: fixed !important;
 
-        /* وضعه في منتصف الشاشة */
-        top: 50% !important;
-        left: 50% !important;
-
-        /* توسيطه تماماً */
-        transform: translate(-50%, -50%) scale(0.9) !important;
+        /* بداية الظهور */
+        top: 50%;
+        left: 50%;
 
         width: 85%;
         max-width: 320px;
@@ -2866,17 +2850,20 @@ document.addEventListener("DOMContentLoaded", function() {
         gap: 8px;
 
         padding: 10px;
-        border-radius: 15px;
 
         background: rgba(16, 20, 30, 0.95);
+        border-radius: 15px;
         border: 1px solid rgba(0, 209, 255, 0.5);
 
         z-index: 9999;
 
-        backdrop-filter: blur(10px);
+        /* هذا هو السر */
+        transform: translate(-50%, -50%);
 
         touch-action: none;
     }
+
+}
 
     .nav-btn {
         width: 100%;
@@ -2888,7 +2875,7 @@ document.addEventListener("DOMContentLoaded", function() {
         justify-content: center;
         align-items: center;
     }
-}
+
 
 
     </style>
