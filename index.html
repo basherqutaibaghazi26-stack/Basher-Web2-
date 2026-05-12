@@ -2049,32 +2049,38 @@ function showNotification() {
 const navBar = document.querySelector('.nav-bar');
 
 let isDragging = false;
-let startX, startY;
+let offsetX = 0;
+let offsetY = 0;
 
-navBar.addEventListener('touchstart', (e) => {
+navBar.addEventListener('touchstart', function(e) {
+
     isDragging = true;
 
     const touch = e.touches[0];
+    const rect = navBar.getBoundingClientRect();
 
-    startX = touch.clientX - navBar.offsetLeft;
-    startY = touch.clientY - navBar.offsetTop;
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
 
-    /* يلغي التوسيط بعد أول لمسة */
+    /* أول لمسة تلغي الـ bottom والتوسيط */
+    navBar.style.bottom = "auto";
     navBar.style.transform = "none";
 });
 
-navBar.addEventListener('touchmove', (e) => {
+navBar.addEventListener('touchmove', function(e) {
+
     if (!isDragging) return;
 
     e.preventDefault();
 
     const touch = e.touches[0];
 
-    navBar.style.left = (touch.clientX - startX) + "px";
-    navBar.style.top = (touch.clientY - startY) + "px";
+    navBar.style.left = (touch.clientX - offsetX) + "px";
+    navBar.style.top = (touch.clientY - offsetY) + "px";
+
 });
 
-navBar.addEventListener('touchend', () => {
+navBar.addEventListener('touchend', function() {
     isDragging = false;
 });
 
@@ -2833,36 +2839,48 @@ document.addEventListener("DOMContentLoaded", function() {
     transition: 0s !important; /* بدون تدرج زمني ليكون الاخفاء فورياً */
 }
 
-@media screen and (max-width: 600px) {
+ @media screen and (max-width: 600px) {
 
     .nav-bar {
         position: fixed !important;
 
-        /* بداية الظهور */
-        top: 50%;
-        left: 50%;
+        /* بالأسفل */
+        bottom: 90px !important;
+
+        /* بالبداية بالنص */
+        left: 50% !important;
+
+        transform: translateX(-50%) !important;
 
         width: 85%;
         max-width: 320px;
 
         display: grid !important;
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
 
+        gap: 8px;
         padding: 10px;
 
         background: rgba(16, 20, 30, 0.95);
         border-radius: 15px;
+
         border: 1px solid rgba(0, 209, 255, 0.5);
 
         z-index: 9999;
 
-        /* هذا هو السر */
-        transform: translate(-50%, -50%);
-
         touch-action: none;
     }
 
+    .nav-btn {
+        width: 100%;
+        padding: 8px 5px !important;
+        font-size: 0.75rem !important;
+        min-height: 40px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
     .nav-btn {
