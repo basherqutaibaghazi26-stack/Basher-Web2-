@@ -2049,43 +2049,58 @@ function showNotification() {
 const navBar = document.querySelector('.nav-bar');
 
 let isDragging = false;
-let offsetX = 0;
-let offsetY = 0;
+
+let startX = 0;
+let startY = 0;
 
 navBar.addEventListener('touchstart', (e) => {
+
     isDragging = true;
 
     const touch = e.touches[0];
+
     const rect = navBar.getBoundingClientRect();
 
-    offsetX = touch.clientX - rect.left;
-    offsetY = touch.clientY - rect.top;
+    startX = touch.clientX - rect.left;
+    startY = touch.clientY - rect.top;
 
     navBar.style.transition = "none";
+
+    navBar.style.transform = "none";
+
+    navBar.style.left = rect.left + "px";
+    navBar.style.top = rect.top + "px";
+
+    navBar.style.bottom = "auto";
 });
 
 navBar.addEventListener('touchmove', (e) => {
+
     if (!isDragging) return;
 
     e.preventDefault();
 
     const touch = e.touches[0];
 
-    let x = touch.clientX - offsetX;
-    let y = touch.clientY - offsetY;
+    let x = touch.clientX - startX;
+    let y = touch.clientY - startY;
+
+    /* منع الخروج خارج الشاشة */
+    x = Math.max(0, Math.min(window.innerWidth - navBar.offsetWidth, x));
+
+    y = Math.max(0, Math.min(window.innerHeight - navBar.offsetHeight, y));
 
     navBar.style.left = x + "px";
     navBar.style.top = y + "px";
-
-    /* إلغاء التوسيط التلقائي أثناء السحب */
-    navBar.style.transform = "scale(0.9)";
 });
 
 navBar.addEventListener('touchend', () => {
+
     isDragging = false;
 
-    navBar.style.transition = "0.3s";
+    navBar.style.transition = "0.2s";
 });
+
 
     function toggleTheme() {
         const body = document.body;
@@ -2842,72 +2857,101 @@ document.addEventListener("DOMContentLoaded", function() {
     transition: 0s !important; /* بدون تدرج زمني ليكون الاخفاء فورياً */
 }
 
- @media screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
 
     .nav-bar {
+
         position: fixed !important;
 
-        /* وضعه في منتصف الشاشة */
-        top: 50% !important;
+        bottom: 75px !important;
         left: 50% !important;
 
-        /* توسيطه تماماً */
-        transform: translate(-50%, -50%) scale(0.9) !important;
+        transform: translateX(-50%);
 
-        width: 85%;
-        max-width: 320px;
+        width: 170px;
+        max-width: 170px;
 
         display: grid !important;
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
 
-        padding: 10px;
-        border-radius: 15px;
+        gap: 5px;
 
-        background: rgba(16, 20, 30, 0.95);
-        border: 1px solid rgba(0, 209, 255, 0.5);
+        padding: 6px;
 
-        z-index: 9999;
+        background: rgba(10, 14, 22, 0.88);
 
-        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 209, 255, 0.35);
+
+        border-radius: 14px;
+
+        backdrop-filter: blur(12px);
+
+        box-shadow:
+            0 0 20px rgba(0,209,255,0.15),
+            0 0 40px rgba(0,0,0,0.4);
+
+        z-index: 99999;
+
+        transition: 0.2s;
 
         touch-action: none;
+
+        user-select: none;
+    }
+
+    /* المقبض العلوي */
+    .nav-bar::before {
+
+        content: '';
+
+        position: absolute;
+
+        top: 4px;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        width: 35px;
+        height: 3px;
+
+        border-radius: 20px;
+
+        background: rgba(255,255,255,0.25);
     }
 
     .nav-btn {
+
         width: 100%;
-        padding: 8px 5px !important;
-        font-size: 0.75rem !important;
-        min-height: 40px;
+
+        min-height: 30px;
+
+        padding: 4px 2px !important;
+
+        font-size: 0.58rem !important;
+
+        border-radius: 8px;
 
         display: flex;
         justify-content: center;
         align-items: center;
+
+        background: rgba(255,255,255,0.03);
+
+        border: 1px solid rgba(255,255,255,0.04);
+
+        overflow: hidden;
     }
 
+    .nav-btn.active-btn {
 
-    .nav-btn {
-        width: 100%;
-        padding: 8px 5px !important;
-        font-size: 0.75rem !important;
-        min-height: 40px;
+        background: linear-gradient(135deg,#00D1FF,#005bea);
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        color: white;
+
+        box-shadow: 0 0 10px rgba(0,209,255,0.4);
     }
+
 }
-
-    .nav-btn {
-        width: 100%;
-        padding: 8px 5px !important;
-        font-size: 0.75rem !important;
-        min-height: 40px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
 
 
