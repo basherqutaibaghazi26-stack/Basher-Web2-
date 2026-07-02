@@ -1032,12 +1032,66 @@ body {
             <img src="me.jpg" class="profile-pic" alt="Profile">
             <h1>من هو بشير؟</h1>
             <div class="typewriter" style="color: var(--accent-color); margin-bottom: 15px;">
-                المدرب المعتمد في معهد صُناع النجاح الدولي <br> في الإمارات | مكتب العراق
+                المدرب المعتمد في برنامج صُناع النجاح الدولي <br> في الإمارات | مكتب العراق
             </div>
             <p class="answer">وايضاً طالب في جامعة النهرين - كلية هندسة المعلومات  قسم هندسة الاتمتة والذكاء الاصطناعي - أسعى لبناء انظمة اتمتة ذكية تخدم المستقبل.</p>
             <div style="margin-top: 20px; font-size: 2rem;">
                 🤖 ⚡ 🧠
             </div>
+<div class="reviews-wrapper">
+
+  <div class="reviews-header">
+    <div class="stars-row">
+      <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      <span class="star">★</span><span class="star">★</span>
+    </div>
+    <h2>آراء طلابنا</h2>
+    <p>أكثر من 200 طالب شاركوا تجربتهم ويانا</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num">99%</div>
+      <div class="stat-label">نسبة الرضا</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">طالب مسجل</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4.9</div>
+      <div class="stat-label">متوسط التقييم</div>
+    </div>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterReviews('all', this)">الكل</button>
+    <button class="filter-btn" onclick="filterReviews('cpp', this)">C++</button>
+    <button class="filter-btn" onclick="filterReviews('python', this)">بايثون</button>
+    <button class="filter-btn" onclick="filterReviews('web', this)">المواقع</button>
+    <button class="filter-btn" onclick="filterReviews('arduino', this)">أردوينو</button>
+    <button class="filter-btn" onclick="filterReviews('computer', this)">أساسيات الحاسوب</button>
+  </div>
+
+  <div class="reviews-grid" id="reviewsGrid"></div>
+
+  <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">عرض المزيد</button>
+
+  <div class="section-title">
+    <span class="notification-dot"></span>
+    صور آراء الطلاب
+  </div>
+  <p class="photo-section-label">اضغط على الصورة لعرضها بالحجم الكامل</p>
+  <div class="photo-grid" id="photoGrid"></div>
+
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="صورة الطالب">
+</div>
+            
         </div>
 
         <div id="courses" class="main-card" data-tilt data-tilt-max="5">
