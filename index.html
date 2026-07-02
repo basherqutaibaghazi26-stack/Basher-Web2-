@@ -1256,8 +1256,8 @@ body {
   </div>
 
   <div class="filter-row">
-    <button class="filter-btn active" onclick="filterReviews('all', this, 'home')">الكل</button>
-    <button class="filter-btn" onclick="filterReviews('cpp', this, 'home')">C++</button>
+    <button class="filter-btn active" onclick="filterReviews('all', this)">الكل</button>
+    <button class="filter-btn" onclick="filterReviews('cpp', this)">C++</button>
     <button class="filter-btn" onclick="filterReviews('python', this)">بايثون</button>
     <button class="filter-btn" onclick="filterReviews('web', this)">المواقع</button>
     <button class="filter-btn" onclick="filterReviews('arduino', this)">أردوينو</button>
@@ -3518,19 +3518,24 @@ const reviews = [
 
 ];
 
-let visibleCount = { home: 6, page: 6 };
-let currentFilter = { home: 'all', page: 'all' };
+let visibleCount = 6;
+let currentFilter = 'all';
 
-function renderCards(target) {
-  const grid = document.getElementById('reviewsGrid-' + target);
-  const filtered = currentFilter[target] === 'all' ? reviews : reviews.filter(r => r.course_key === currentFilter[target]);
-  const visible = filtered.slice(0, visibleCount[target]);
+function getInitials(name) {
+  const parts = name.trim().split(' ');
+  return parts.length >= 2 ? parts[0][0] + parts[1][0] : parts[0][0];
+}
+
+function renderCards() {
+  const grid = document.getElementById('reviewsGrid');
+  const filtered = currentFilter === 'all' ? reviews : reviews.filter(r => r.course_key === currentFilter);
+  const visible = filtered.slice(0, visibleCount);
 
   grid.innerHTML = visible.map(r => `
     <div class="review-card ${r.featured ? 'featured' : ''}">
       <div class="card-top">
         <div class="avatar">
-          <img src="images/${r.img}.jpg" alt="${r.name}"
+          <img src="${r.img}.jpg" alt="${r.name}"
             onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none'"
             onerror="">
           <span style="font-size:13px;font-weight:500;">${getInitials(r.name)}</span>
@@ -3546,47 +3551,43 @@ function renderCards(target) {
     </div>
   `).join('');
 
-  document.getElementById('loadMoreBtn-' + target).style.display = filtered.length <= visibleCount[target] ? 'none' : 'block';
+  document.getElementById('loadMoreBtn').style.display = filtered.length <= visibleCount ? 'none' : 'block';
 }
 
-function filterReviews(key, btn, target) {
-  currentFilter[target] = key;
-  visibleCount[target] = 6;
-  const filterButtons = btn.closest('.filter-row').querySelectorAll('.filter-btn');
-  filterButtons.forEach(b => b.classList.remove('active'));
+function filterReviews(key, btn) {
+  currentFilter = key;
+  visibleCount = 6;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  renderCards(target);
+  renderCards();
 }
 
-function loadMore(target) {
-  visibleCount[target] += 6;
-  renderCards(target);
+function loadMore() {
+  visibleCount += 6;
+  renderCards();
 }
 
-function buildPhotoGrid(target) {
-  const grid = document.getElementById('photoGrid-' + target);
+function buildPhotoGrid() {
+  const grid = document.getElementById('photoGrid');
   const photos = Array.from({length: 60}, (_, i) => i + 1);
   grid.innerHTML = photos.map(n => `
-    <div class="photo-thumb" onclick="openLightbox('images/${n}.jpg', '${target}')">
-      <img src="images/${n}.jpg" alt="رأي طالب ${n}" onerror="this.parentElement.style.display='none'">
+    <div class="photo-thumb" onclick="openLightbox('${n}.jpg')">
+      <img src="${n}.jpg" alt="رأي طالب ${n}" onerror="this.parentElement.style.display='none'">
     </div>
   `).join('');
 }
 
-function openLightbox(src, target) {
-  document.getElementById('lightboxImg-' + target).src = src;
-  document.getElementById('lightbox-' + target).classList.add('open');
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
 }
 
-function closeLightbox(target) {
-  document.getElementById('lightbox-' + target).classList.remove('open');
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
 }
 
-// شغّل الاثنين عند تحميل الصفحة
-renderCards('home');
-buildPhotoGrid('home');
-renderCards('page');
-buildPhotoGrid('page');
+renderCards();
+buildPhotoGrid();
 
 </script>
 
