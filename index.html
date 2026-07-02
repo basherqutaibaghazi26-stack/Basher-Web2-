@@ -740,15 +740,18 @@
             <h1> دوراتي الاونلاين</h1>
             <div class="social-link">دورة اساسيات الحاسوب</div>
             <div class="social-link"> دورة برمجة بايثون النادرة (الأولى من نوعها)</div>
-            <div class="social-link">🤖 دورة اردوينو انترنت الاشياء للمبتدئين</div>
+            <div class="social-link"> دورة صُناع الذكاء الإصطناعي </div>
+            <div class="social-link">🤖 دورة اردوينو انترنت الاشياء من الصفر للأحتراف</div>
             <div class="social-link"> HTML + CSS + JavaScript + IoT دورة تصميم المواقع النادرة</div>
-            <div class="social-link"> Flutter + Dart +IoT دورة برمجة النادرة </div>
+            <div class="social-link"> Flutter + Dart + IoT دورة برمجة النادرة </div>
             <div class="social-link"> دورة برمجة C++</div>
             <div class="social-link"> دورة برمجة C#</div>
-            <div class="social-link">   دورة اللغة الانكليزية (قريباً)</div>
+            <div class="social-link"> دورة برمجة التطبيقات بالذكاء الإصطناعي </div>
+            <div class="social-link"> دورة اللغة الانكليزية</div>
             <h1>دوراتي الحضورية </h1>
             <div class="social-link">دورة اساسيات الحاسوب</div>
             <div class="social-link">دورة برمجة بايثون النادرة</div>
+            <div class="social-link">دورة اللغة الانكليزية </div>
         </div>
 
 
@@ -777,6 +780,26 @@
                 <div class="course-icon">📱</div>
                 <h3>كورس تطبيقات الموبايل</h3>
                 <span>FLUTTER + DART + IoT</span>
+            </div>
+            <div class="course-card" onclick="openCourse('C++')" data-tilt>
+                <div class="course-icon">🔥</div>
+                <h3>C++ كورس برمجة</h3>
+                <span>C++ with main fields</span>
+            </div>
+            <div class="course-card" onclick="openCourse('Ai')" data-tilt>
+                <div class="course-icon">🧠</div>
+                <h3> كورس صُناع الذكاء الإصطناعي</h3>
+                <span>Full Ai Agency Management</span>
+            </div>
+            <div class="course-card" onclick="openCourse('arduino')" data-tilt>
+                <div class="course-icon">🤖</div>
+                <h3>كورس الأردوينو</h3>
+                <span>Full arduino + 10 projects</span>
+            </div>
+            <div class="course-card" onclick="openCourse('app')" data-tilt>
+                <div class="course-icon">🎮</div>
+                <h3> كورس برمجةالتطبيقات بالذكاء الإصطناعي</h3>
+                <span>Full application course </span>
             </div>
             <div class="course-card" onclick="openCourse('english')" data-tilt>
                 <div class="course-icon">ABC</div>
@@ -1008,6 +1031,7 @@
         <button class="nav-btn" onclick="showPage('verify', this)">الشهادات</button>
         <button class="nav-btn" onclick="showPage('inquiries', this)">الاستفسارات</button>
         <button class="nav-btn" onclick="showPage('lectures', this)">المحاضرات</button>
+        <button class="nav-btn" onclick="showPage('lectures', this)">آراء الطلاب</button>
         <button class="nav-btn" onclick="showPage('projects', this)">مشاريعي</button>
         <button class="nav-btn" onclick="showPage('channels', this)">قنواتي</button>
         <button class="nav-btn" onclick="showPage('help', this)">مساعدة</button>
@@ -1966,7 +1990,12 @@
         "دورة برمجة بايثون 🐍",
         "دورة أساسيات الحاسوب 💻",
         "دورة الأردوينو والتحكم 🤖",
-        "دورة برمجة بايثون 🐍", // تكرار لزيادة الاحتمالية
+        "دورة تصميم المواقع 🌐",
+        "C++ دورة برمجة 🔥",
+        "C# دورة برمجة 🎮",
+        " دورة برمجة فلاتر ودارت 📱",
+        "دورة صُناع الذكاء الإصطناعي 🧠",
+
     ];
 function showNotification() {
         const toast = document.getElementById('live-toast');
@@ -2008,6 +2037,11 @@ function showNotification() {
 
     // البدء: أول إشعار يظهر بعد 4 ثواني من فتح الموقع
     setTimeout(showNotification, 4000);
+
+    document.getElementById('chat-trigger').style.position = 'relative';
+    const dot = document.createElement('span');
+    dot.style.cssText = 'position:absolute;top:0;right:0;width:12px;height:12px;background:#FF5252;border-radius:50%;border:2px solid #0B0F19;animation:pulse-red 2s infinite;';
+    document.getElementById('chat-trigger').appendChild(dot);
 
 </script>
 
@@ -2191,9 +2225,9 @@ const coursesData = {
         { id: "https://youtu.be/5np1EHdv0qU", name: "المحاضرة الخامسة الجزء الاول" },
         { id: "https://youtu.be/5hXMNfSRVMk", name: " المحاضرة الخامسة الجزء الثاني" },
         { id: "https://youtu.be/VCwSfbhMQ80", name: "  المحاضرة السادسة الجزء الاول" },
-        { id: "p7.mp4", name: " المحاضرة السادسة الجزء الثاني" },
-        { id: "p7.mp4", name: " المحاضرة السادسة الجزء الثالث" },
-        { id: "p8.mp4", name: "المحاضرة السابعة " },
+        { id: "https://youtu.be/qn4a1b3K1vs", name: " المحاضرة السادسة الجزء الثاني" },
+        { id: "https://youtu.be/g_3pwebkz3E", name: " المحاضرة السادسة الجزء الثالث" },
+        { id: "https://youtu.be/gURocabp6Xs", name: "المحاضرة السابعة " },
         { id: "p9.mp4", name: "المحاضرة الثامنة" },
         { id: "p10.mp4", name: "المحاضرة التاسعة" },
         { id: "p11.mp4", name: "المحاضرة العاشرة " }
@@ -2204,7 +2238,7 @@ const coursesData = {
     computer: {
         title: "كورس أساسيات الحاسوب 💻",
         secretCode: "COMP-2026",
-        allowedEmails: ["ali@gmail.com", "basher@gmail.com"],
+        allowedEmails: ["ali@gmail.com","basher@gmail.com"],
 
         lessons: [
         { id: "https://youtu.be/DB9TyzUrj1Q", name: " المحاضرة الاولى" } ,
@@ -2224,15 +2258,15 @@ const coursesData = {
 
         lessons: [
         { id: "https://youtu.be/SuQWQ1oSW3A", name: " المحاضرة الاولى" },
-        { id: "", name: "المحاضرة الثانية" },
-        { id: "w3.mp4", name: "المحاضرة الثالثة" },
-        { id: "w4.mp4", name: "المحاضرة الرابعة" },
-        { id: "w5.mp4", name: "المحاضرة الخامسة" },
-        { id: "w6.mp4", name: " المحاضرة السادسة" },
-        { id: "w7.mp4", name: "المحاضرة السابعة" },
-        { id: "w8.mp4", name: "المحاضرة الثامنة" },
-        { id: "w9.mp4", name: "المحاضرة التاسعة" },
-        { id: "w10.mp4", name: "المحاضرة العاشرة " }        
+        { id: "https://youtu.be/6Y7VQ77SsDU", name: "المحاضرة الثانية" },
+        { id: "https://youtu.be/n4AJjnYUBi8", name: "المحاضرة الثالثة" },
+        { id: "https://youtu.be/DIH4IZ0i3qM", name: "المحاضرة الرابعة" },
+        { id: "https://youtu.be/qNo3mzVlLTI", name: "المحاضرة الخامسة" },
+        { id: "https://youtu.be/wdjXpcfud6g", name: " المحاضرة السادسة" },
+        { id: "https://youtu.be/ira2-lJ4WbE", name: "المحاضرة السابعة" },
+        { id: "https://youtu.be/6y5nEFYxVfA", name: "المحاضرة الثامنة" },
+        { id: "w1.mp4", name: "المحاضرة التاسعة" },
+        { id: "w2.mp4", name: "المحاضرة العاشرة " }        
         ]
     },
     flutter: {
@@ -2240,17 +2274,260 @@ const coursesData = {
         secretCode: "FLUT-2026",
         allowedEmails: ["ali@gmail.com", "basher@gmail.com"],
         lessons: [
-        { id: "f1.mp4", name: "المحاضرة الاولى" } ,
-        { id: "f2.mp4", name: "المحاضرة الثانية" },
-        { id: "f3.mp4", name: "المحاضرة الثالثة" },
-        { id: "f4.mp4", name: "المحاضرة الرابعة" },
-        { id: "f5.mp4", name: "المحاضرة الخامسة" },
+         { id: "https://youtu.be/kgy9c9WAHQ8", name: "المحاضرة 1" },
+         { id: "https://youtu.be/juggCpgYP1g", name: "المحاضرة 2" },
+         { id: "https://youtu.be/qoA1cWR0opE", name: "المحاضرة 3" },
+         { id: "https://youtu.be/uPrnnLFoipQ", name: "المحاضرة 4" },
+         { id: "https://youtu.be/_amHjVIl5FE", name: "المحاضرة 5" },
+         { id: "https://youtu.be/rE7upmCa4pw", name: "المحاضرة 6" },
+         { id: "https://youtu.be/OCBcmIBwJzE", name: "المحاضرة 7" },
+         { id: "https://youtu.be/A8TjXaTYkTM", name: "المحاضرة 8" },
+         { id: "https://youtu.be/DtO0mM4e-Dw", name: "المحاضرة 9" },
+         { id: "https://youtu.be/hN3klV3ivc4", name: "المحاضرة 10" },
+         { id: "https://youtu.be/Q_Zh3-S5dXk", name: "المحاضرة 11" },
+         { id: "https://youtu.be/w9srftfSPWs", name: "المحاضرة 12" },
+         { id: "https://youtu.be/q1bJ7mu8PSU", name: "المحاضرة 13" },
+         { id: "https://youtu.be/t63xNSsqOyM", name: "المحاضرة 14" },
+         { id: "https://youtu.be/Vr9DfP0gzuI", name: "المحاضرة 15" },
+         { id: "https://youtu.be/_IiKoADZJGw", name: "المحاضرة 16" },
+         { id: "https://youtu.be/nkFKMHTI1No", name: "المحاضرة 17" },
+         { id: "https://youtu.be/be1HC4J_vtk", name: "المحاضرة 18" },
+         { id: "https://youtu.be/nXmtuitYuWQ", name: "المحاضرة 19" },
+         { id: "https://youtu.be/z2aI4N3N8JY", name: "المحاضرة 20" },
 
         ]
     },
+    'C++': {
+         title: "كورس برمجة C++ 📱",
+         secretCode: "C-2026",
+         allowedEmails: ["ali@gmail.com", "basher@gmail.com"],
+         lessons: [
+         { id: "https://youtu.be/kgy9c9WAHQ8", name: "المحاضرة 1" },
+         { id: "https://youtu.be/juggCpgYP1g", name: "المحاضرة 2" },
+         { id: "https://youtu.be/qoA1cWR0opE", name: "المحاضرة 3" },
+         { id: "https://youtu.be/uPrnnLFoipQ", name: "المحاضرة 4" },
+         { id: "https://youtu.be/_amHjVIl5FE", name: "المحاضرة 5" },
+         { id: "https://youtu.be/rE7upmCa4pw", name: "المحاضرة 6" },
+         { id: "https://youtu.be/OCBcmIBwJzE", name: "المحاضرة 7" },
+         { id: "https://youtu.be/A8TjXaTYkTM", name: "المحاضرة 8" },
+         { id: "https://youtu.be/DtO0mM4e-Dw", name: "المحاضرة 9" },
+         { id: "https://youtu.be/hN3klV3ivc4", name: "المحاضرة 10" },
+         { id: "https://youtu.be/Q_Zh3-S5dXk", name: "المحاضرة 11" },
+         { id: "https://youtu.be/w9srftfSPWs", name: "المحاضرة 12" },
+         { id: "https://youtu.be/q1bJ7mu8PSU", name: "المحاضرة 13" },
+         { id: "https://youtu.be/t63xNSsqOyM", name: "المحاضرة 14" },
+         { id: "https://youtu.be/Vr9DfP0gzuI", name: "المحاضرة 15" },
+         { id: "https://youtu.be/_IiKoADZJGw", name: "المحاضرة 16" },
+         { id: "https://youtu.be/nkFKMHTI1No", name: "المحاضرة 17" },
+         { id: "https://youtu.be/be1HC4J_vtk", name: "المحاضرة 18" },
+         { id: "https://youtu.be/nXmtuitYuWQ", name: "المحاضرة 19" },
+         { id: "https://youtu.be/z2aI4N3N8JY", name: "المحاضرة 20" },
+         { id: "https://youtu.be/ZGBxJJOiwTA", name: "المحاضرة 21" },
+         { id: "https://youtu.be/D5MxeBu4Ddo", name: "المحاضرة 22" },
+         { id: "https://youtu.be/wzfhHwXpaL8", name: "المحاضرة 23" },
+         { id: "https://youtu.be/hr490Ujnys8", name: "المحاضرة 24" },
+         { id: "https://youtu.be/_Ikqa9QGqdc", name: "المحاضرة 25" },
+         { id: "https://youtu.be/TeWCRLo-a6M", name: "المحاضرة 26" },
+         { id: "https://youtu.be/nxfvvQMy8kY", name: "المحاضرة 27" },
+         { id: "https://youtu.be/rhLHW1MCw2A", name: "المحاضرة 28" },
+         { id: "C1.mp4", name: "المحاضرة 29" },
+         { id: "C2.mp4", name: "المحاضرة 30" },        
+
+        ]
+
+    },
+    arduino: {
+        title: "كورس الاردوينو 🤖",
+        secretCode: "ARD-2026",
+        allowedEmails: ["ali@gmail.com", "basher@gmail.com"],
+        lessons: [
+        { id: "f1.mp4", name: "المحاضرة 1" },
+        { id: "f2.mp4", name: "المحاضرة 2" },
+        { id: "f3.mp4", name: "المحاضرة 3" },
+        { id: "f4.mp4", name: "المحاضرة 4" },
+        { id: "f5.mp4", name: "المحاضرة 5" },
+        { id: "f1.mp4", name: "المحاضرة 6" },
+        { id: "f2.mp4", name: "المحاضرة 7" },
+        { id: "f3.mp4", name: "المحاضرة 8" },
+        { id: "f4.mp4", name: "المحاضرة 9" },
+        { id: "f5.mp4", name: "المحاضرة 10" },
+        { id: "f1.mp4", name: "المحاضرة 11" },
+        { id: "f2.mp4", name: "المحاضرة 12" },
+        { id: "f3.mp4", name: "المحاضرة 13" },
+        { id: "f4.mp4", name: "المحاضرة 14" },
+        { id: "f5.mp4", name: "المحاضرة 15" },
+        { id: "f1.mp4", name: "المحاضرة 16" },
+        { id: "f2.mp4", name: "المحاضرة 17" },
+        { id: "f3.mp4", name: "المحاضرة 18" },
+        { id: "f4.mp4", name: "المحاضرة 19" },
+        { id: "f5.mp4", name: "المحاضرة 20" },
+        { id: "f1.mp4", name: "المحاضرة 21" },
+        { id: "f2.mp4", name: "المحاضرة 22" },
+        { id: "f3.mp4", name: "المحاضرة 23" },
+        { id: "f4.mp4", name: "المحاضرة 24" },
+        { id: "f5.mp4", name: "المحاضرة 25" },
+        { id: "f1.mp4", name: "المحاضرة 26" },
+        { id: "f2.mp4", name: "المحاضرة 27" },
+        { id: "f3.mp4", name: "المحاضرة 28" },
+        { id: "f4.mp4", name: "المحاضرة 29" },
+        { id: "f5.mp4", name: "المحاضرة 30" },
+        { id: "f1.mp4", name: "المحاضرة 31" },
+        { id: "f2.mp4", name: "المحاضرة 32" },
+        { id: "f3.mp4", name: "المحاضرة 33" },
+        { id: "f4.mp4", name: "المحاضرة 34" },
+        { id: "f5.mp4", name: "المحاضرة 35" },
+        { id: "f1.mp4", name: "المحاضرة 36" },
+        { id: "f2.mp4", name: "المحاضرة 37" },
+        { id: "f3.mp4", name: "المحاضرة 38" },
+        { id: "f4.mp4", name: "المحاضرة 39" },
+        { id: "f5.mp4", name: "المحاضرة 40" },
+        { id: "f1.mp4", name: "المحاضرة 41" },
+        { id: "f2.mp4", name: "المحاضرة 42" },
+        { id: "f3.mp4", name: "المحاضرة 43" },
+        { id: "f4.mp4", name: "المحاضرة 44" },
+        { id: "f5.mp4", name: "المحاضرة 45" },
+        { id: "f1.mp4", name: "المحاضرة 46" },
+        { id: "f2.mp4", name: "المحاضرة 47" },
+        { id: "f3.mp4", name: "المحاضرة 48" },
+        { id: "f4.mp4", name: "المحاضرة 49" },
+        { id: "f5.mp4", name: "المحاضرة 50" },
+
+        ]
+    },
+    Ai: {
+        title: "كورس شامل الذكاء الاصطناعي 🧠",
+        secretCode: "AI-2026",
+        allowedEmails: ["ali@gmail.com", "basher@gmail.com"],
+        lessons: [
+        { id: "f1.mp4", name: "المحاضرة 1" },
+        { id: "f2.mp4", name: "المحاضرة 2" },
+        { id: "f3.mp4", name: "المحاضرة 3" },
+        { id: "f4.mp4", name: "المحاضرة 4" },
+        { id: "f5.mp4", name: "المحاضرة 5" },
+        { id: "f1.mp4", name: "المحاضرة 6" },
+        { id: "f2.mp4", name: "المحاضرة 7" },
+        { id: "f3.mp4", name: "المحاضرة 8" },
+        { id: "f4.mp4", name: "المحاضرة 9" },
+        { id: "f5.mp4", name: "المحاضرة 10" },
+        { id: "f1.mp4", name: "المحاضرة 11" },
+        { id: "f2.mp4", name: "المحاضرة 12" },
+        { id: "f3.mp4", name: "المحاضرة 13" },
+        { id: "f4.mp4", name: "المحاضرة 14" },
+        { id: "f5.mp4", name: "المحاضرة 15" },
+        { id: "f1.mp4", name: "المحاضرة 16" },
+        { id: "f2.mp4", name: "المحاضرة 17" },
+        { id: "f3.mp4", name: "المحاضرة 18" },
+        { id: "f4.mp4", name: "المحاضرة 19" },
+        { id: "f5.mp4", name: "المحاضرة 20" },
+        { id: "f1.mp4", name: "المحاضرة 21" },
+        { id: "f2.mp4", name: "المحاضرة 22" },
+        { id: "f3.mp4", name: "المحاضرة 23" },
+        { id: "f4.mp4", name: "المحاضرة 24" },
+        { id: "f5.mp4", name: "المحاضرة 25" },
+        { id: "f1.mp4", name: "المحاضرة 26" },
+        { id: "f2.mp4", name: "المحاضرة 27" },
+        { id: "f3.mp4", name: "المحاضرة 28" },
+        { id: "f4.mp4", name: "المحاضرة 29" },
+        { id: "f5.mp4", name: "المحاضرة 30" },
+        { id: "f1.mp4", name: "المحاضرة 31" },
+        { id: "f2.mp4", name: "المحاضرة 32" },
+        { id: "f3.mp4", name: "المحاضرة 33" },
+        { id: "f4.mp4", name: "المحاضرة 34" },
+        { id: "f5.mp4", name: "المحاضرة 35" },
+        { id: "f1.mp4", name: "المحاضرة 36" },
+        { id: "f2.mp4", name: "المحاضرة 37" },
+        { id: "f3.mp4", name: "المحاضرة 38" },
+        { id: "f4.mp4", name: "المحاضرة 39" },
+        { id: "f5.mp4", name: "المحاضرة 40" },
+        { id: "f1.mp4", name: "المحاضرة 41" },
+        { id: "f2.mp4", name: "المحاضرة 42" },
+        { id: "f3.mp4", name: "المحاضرة 43" },
+        { id: "f4.mp4", name: "المحاضرة 44" },
+        { id: "f5.mp4", name: "المحاضرة 45" },
+        { id: "f1.mp4", name: "المحاضرة 46" },
+        { id: "f2.mp4", name: "المحاضرة 47" },
+        { id: "f3.mp4", name: "المحاضرة 48" },
+        { id: "f4.mp4", name: "المحاضرة 49" },
+        { id: "f5.mp4", name: "المحاضرة 50" },
+        { id: "f5.mp4", name: "المحاضرة 51" },
+        { id: "f1.mp4", name: "المحاضرة 52" },
+        { id: "f2.mp4", name: "المحاضرة 53" },
+        { id: "f3.mp4", name: "المحاضرة 54" },
+        { id: "f4.mp4", name: "المحاضرة 55" },
+        { id: "f5.mp4", name: "المحاضرة 56" },
+        { id: "f1.mp4", name: "المحاضرة 57" },
+        { id: "f2.mp4", name: "المحاضرة 58" },
+        { id: "f3.mp4", name: "المحاضرة 59" },
+        { id: "f4.mp4", name: "المحاضرة 60" },
+        
+        ]
+    },
+    app: {
+        title: "كورس برمجة التطبيقات بالذكاء الاصطناعي 🤖",
+        secretCode: "APP-2026",
+        allowedEmails: ["ali@gmail.com", "basher@gmail.com"],
+        lessons: [
+        { id: "f1.mp4", name: "المحاضرة 1" },
+        { id: "f2.mp4", name: "المحاضرة 2" },
+        { id: "f3.mp4", name: "المحاضرة 3" },
+        { id: "f4.mp4", name: "المحاضرة 4" },
+        { id: "f5.mp4", name: "المحاضرة 5" },
+        { id: "f1.mp4", name: "المحاضرة 6" },
+        { id: "f2.mp4", name: "المحاضرة 7" },
+        { id: "f3.mp4", name: "المحاضرة 8" },
+        { id: "f4.mp4", name: "المحاضرة 9" },
+        { id: "f5.mp4", name: "المحاضرة 10" },
+        { id: "f1.mp4", name: "المحاضرة 11" },
+        { id: "f2.mp4", name: "المحاضرة 12" },
+        { id: "f3.mp4", name: "المحاضرة 13" },
+        { id: "f4.mp4", name: "المحاضرة 14" },
+        { id: "f5.mp4", name: "المحاضرة 15" },
+        { id: "f1.mp4", name: "المحاضرة 16" },
+        { id: "f2.mp4", name: "المحاضرة 17" },
+        { id: "f3.mp4", name: "المحاضرة 18" },
+        { id: "f4.mp4", name: "المحاضرة 19" },
+        { id: "f5.mp4", name: "المحاضرة 20" },
+        { id: "f1.mp4", name: "المحاضرة 21" },
+        { id: "f2.mp4", name: "المحاضرة 22" },
+        { id: "f3.mp4", name: "المحاضرة 23" },
+        { id: "f4.mp4", name: "المحاضرة 24" },
+        { id: "f5.mp4", name: "المحاضرة 25" },
+        { id: "f1.mp4", name: "المحاضرة 26" },
+        { id: "f2.mp4", name: "المحاضرة 27" },
+        { id: "f3.mp4", name: "المحاضرة 28" },
+        { id: "f4.mp4", name: "المحاضرة 29" },
+        { id: "f5.mp4", name: "المحاضرة 30" },
+        { id: "f1.mp4", name: "المحاضرة 31" },
+        { id: "f2.mp4", name: "المحاضرة 32" },
+        { id: "f3.mp4", name: "المحاضرة 33" },
+        { id: "f4.mp4", name: "المحاضرة 34" },
+        { id: "f5.mp4", name: "المحاضرة 35" },
+        { id: "f1.mp4", name: "المحاضرة 36" },
+        { id: "f2.mp4", name: "المحاضرة 37" },
+        { id: "f3.mp4", name: "المحاضرة 38" },
+        { id: "f4.mp4", name: "المحاضرة 39" },
+        { id: "f5.mp4", name: "المحاضرة 40" },
+        { id: "f1.mp4", name: "المحاضرة 41" },
+        { id: "f2.mp4", name: "المحاضرة 42" },
+        { id: "f3.mp4", name: "المحاضرة 43" },
+        { id: "f4.mp4", name: "المحاضرة 44" },
+        { id: "f5.mp4", name: "المحاضرة 45" },
+        { id: "f1.mp4", name: "المحاضرة 46" },
+        { id: "f2.mp4", name: "المحاضرة 47" },
+        { id: "f3.mp4", name: "المحاضرة 48" },
+        { id: "f4.mp4", name: "المحاضرة 49" },
+        { id: "f5.mp4", name: "المحاضرة 50" },
+
+        ]
+    },
+
+
+
+
+    
     english: {
         title: "English Language Course 🇬🇧",
-        secretCode: "ENG-MRB",
+        secretCode: "ENG-2026",
         allowedEmails: ["ali@gmail.com", "basher@gmail.com"],
         lessons: [ { id: "e1.mp4", name: "Lesson One" } ]
     }
@@ -2865,3 +3142,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+
