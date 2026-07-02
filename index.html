@@ -1831,6 +1831,7 @@ body {
             <button onclick="botReply('appear1')">🏠 نظام الدورات</button>
             <button onclick="botReply('appear2')">👨‍🏫 الدورات المدمجة</button>
             <button onclick="botReply('cert')">🎓 الشهادات</button>
+            <button onclick="botReply('appear3')">👨‍🏫 آراء الطلاب</button>
             <button onclick="botReply('human')">👤 أريد التحدث مع بشير</button>
         </div>
     </div>
@@ -2004,6 +2005,10 @@ body {
             case 'appear2':
                 userText = "ماذا يعني مدمج؟";
                 botText = "مدمج يعني المحاضرات اونلاين في البيت والامتحان يكون حضورياً عبر مراكز امتحانية في بغداد واربيل وحتى يوجد محاضرة مراجعة مركزة لكل دورات المدرب بشير مقدمة من معهد النجاح وتكون هاي المحاضرات حضورياً اختيارياً في قاعات مراكز الامتحانية";
+                break;
+            case 'appear3':
+                userText = "ما هي اراء الطلاب بعد انتهاءهم من كورسات المدرب بشير؟";
+                botText = "لمعرفة آراء الطلاب يرجى النقر الى الصفحة الرئيسية";
                 break;
             case 'human':
                 userText = "أريد التحدث مع بشير";
