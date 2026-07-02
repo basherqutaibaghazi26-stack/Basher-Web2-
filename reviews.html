@@ -479,8 +479,8 @@ function buildPhotoGrid() {
   const grid = document.getElementById('photoGrid');
   const photos = Array.from({length: 60}, (_, i) => i + 1);
   grid.innerHTML = photos.map(n => `
-    <div class="photo-thumb" onclick="openLightbox('images/${n}.jpg')">
-      <img src="images/${n}.jpg" alt="رأي طالب ${n}" onerror="this.parentElement.style.display='none'">
+    <div class="photo-thumb" onclick="openLightbox('${n}.jpg')">
+      <img src="${n}.jpg" alt="رأي طالب ${n}" onerror="this.parentElement.style.display='none'">
     </div>
   `).join('');
 }
@@ -500,3 +500,4 @@ buildPhotoGrid();
 
 </body>
 </html>
+
